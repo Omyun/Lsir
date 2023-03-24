@@ -1,0 +1,76 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="layui/layui.js"></script>
+<script src="js/jquery-1.8.3.min.js"></script>
+<link rel="stylesheet" href="layui/css/layui.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<!-- 插入一个只有一个开关按钮的表单 -->
+<form class="layui-form" action="">
+    <div class="layui-form-item">
+        <div class="layui-form-item">
+            <div class="layui-form-item">
+
+                <label class="layui-form-label">否是成功</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest"
+                        lay-text="成功|失败">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 插入输入框 -->
+    <input type="text" id="text_push" lay-verify="required" placeholder="弹窗下方要显示的内容" autocomplete="off"
+        class="layui-input" value="命中总行库预，授信额度 50 万元.">
+    <!-- 插入开关按钮 -->
+
+
+
+    <button type="button" class="layui-btn layui-btn-fluid  layui-btn-normal" onclick="jump()">走你</button>
+    <script>
+
+        var status = "1"
+        //开关 监听
+        layui.use('form', function () {
+            var form = layui.form;
+            form.on('switch(switchTest)', function (data) {
+                console.log(data.elem.checked); //开关是否开启，true或者false
+                if (data.elem.checked) {
+                    status = "1"
+                } else {
+                    status = "0"
+                }
+            });
+        });
+
+
+
+        // 获取 text_push 的值
+
+
+
+        // 跳转
+        function jump() {
+            // 获取开关按钮的值
+            var switch1 = document.getElementById("switch");
+
+
+
+            var text_push = document.getElementById("text_push").value;
+            // text_push url 编码
+            var text_push_encode = encodeURIComponent(text_push);
+            // base64
+            var text_push_base64 = btoa(text_push_encode);
+            console.log(text_push_base64);
+
+
+
+
+
+            // 判断开关按钮的值
+
+            // 跳转到成功页面
+            window.location.href = "index.html?msg=" + text_push_base64 + "&status=" + status;
+
+        }
+
+
+    </script>

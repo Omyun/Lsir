@@ -1,0 +1,188 @@
+<!-- UTF-8 -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 引入layui -->
+<script src="layui/layui.js"></script>
+<!-- 引入layui-css -->
+<link rel="stylesheet" href="layui/css/layui.css">
+
+<!-- 引入js目录下所有js -->
+<script src="js/jquery-1.8.3.min.js"></script>
+
+<!-- 自适应 -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<style>
+    .body {
+
+        /* font-family:"STHeiti"; */
+        font-family: '微软雅黑';
+
+
+    }
+
+    .myskin {
+        background-color: ffffff;
+        /* box-shadow: 0 0 0 rgba(0,0,0,0); */
+    }
+</style>
+
+<!-- 创建一个卡片 -->
+<!-- 插入银行icon -->
+
+<body class="body">
+    <div class="layui-card">
+        <div class="layui-card-header" style="margin-left: -4%;">
+
+
+
+
+
+
+
+
+            <div class="layui-row" onclick="go_ad()">
+
+                <div class="layui-col-xs1" style="text-align:left;">
+                    <i class="layui-icon layui-icon-left" style="font-size: 30px; color: #1E9FFF;"></i>
+                </div>
+                <div class="layui-col-xs2">
+                    <h3 style="text-align:left;">返回</h3>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+    </div>
+    <div class="layui-card">
+        <div class="layui-card-header" style="text-align:center;">
+            <h2 style="text-align:center;font-weight: bold;font-family: cursive;">分支网点预授信查询</h2>
+        </div>
+        <div class="layui-card-body">
+            <!-- 创建一个表单 -->
+            <form class="layui-form">
+                <!-- 适配手机的div -->
+                <div class="layui-form-item">
+                    <!-- 标签 -->
+
+                    <label class="layui-form-label"><i class="layui-icon layui-icon-username"></i>姓名</label>
+                    <!-- 输入框 -->
+                    <div class="layui-input-block">
+                        <input type="text" name="username" lay-verify="required" placeholder="姓名" autocomplete="off"
+                            class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><i class="layui-icon layui-icon-vercode"></i>身份证</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="username" lay-verify="required" placeholder="身份证号码" autocomplete="off"
+                            class="layui-input">
+                    </div>
+                </div>
+
+
+
+                <!-- 插入三个 省市县下拉 -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><i class="layui-icon layui-icon-location"></i>网点地区</label>
+                    <div class="layui-input-block">
+                        <select name="province" class="province" lay-verify="required" lay-search lay-filter="province">
+                            <option value="">省份</option>
+                        </select>
+                    </div>
+                    <br>
+                    <label class="layui-form-label"><i class="layui-icon layui-icon-component"></i>网点城市</label>
+                    <div class="layui-input-block">
+                        <select name="city" class="city" lay-verify="required" lay-search lay-filter="city">
+                            <option value="">地级市</option>
+                        </select>
+                    </div>
+                    <br>
+                    <label class="layui-form-label"><i class="layui-icon layui-icon-form"></i>网点区县</label>
+                    <div class="layui-input-block">
+                        <select name="district" class="district" lay-verify="required" lay-search>
+                            <option value="">县/区</option>
+                        </select>
+                    </div>
+                    <br>
+                    <label class="layui-form-label"><i class="layui-icon layui-icon-service"></i>网点名称</label>
+                    <div class="layui-input-block">
+                        <select name="A" class="district" lay-verify="required" lay-search>
+                            <option value="">营业部</option>
+                            <option value="">销售部</option>
+                        </select>
+                    </div>
+                    <br>
+                    <button type="button" class="layui-btn layui-btn-fluid  layui-btn-normal"
+                        lay-filter="push">查询</button>
+                </div>
+
+        </div>
+        </form>
+    </div>
+</body>
+<script src="js/area.js" type="text/javascript"></script>
+<script src="js/selectMore.js" type="text/javascript"></script>
+<script>
+    function go_ad() {
+        window.location.href = "admin.html";
+    }
+    // 获取url参数
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+
+    var text_body = getQueryString("msg")
+    var status = getQueryString("status")
+    var img = ""
+    console.log(text_body)
+
+    //base64 解码 text_body
+    var text_body = atob(text_body)
+    console.log(text_body)
+    //url 解码 text_body
+    var text_body = decodeURI(text_body)
+    console.log(text_body)
+    if (status == "1") {
+        img = "good.png"
+        sz = "25"
+    } else {
+        img = "sorry.png"
+        sz = "10"
+    }
+    // 按钮点击弹窗
+    layui.use('layer', function () {
+        var layer = layui.layer;
+        // 获取姓名
+        var name = getQueryString("name")
+        // 按钮点击事件
+        $('.layui-btn').on('click', function () {
+            // 弹窗
+            layer.open({
+                type: 1
+                , title: false //不显示标题栏
+                , closeBtn: false
+                ,closed:false
+                , area: ['70%']
+                , shade: 0.4
+                , id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                , btn: ['确定']
+                , btnAlign: 'c'
+                , skin: 'myskin'
+                , moveType: 1 //拖拽模式，0或者1
+                , content: '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><div style="padding: 50px; line-height: 22px; background-color: #ffffff; color: #fff; font-weight: 300;"><br><h2  style="text-align:center;font-weight: bold;margin-top: -30%;font-family: cursive;color: #000;">额度审查结果</h2><br><img style="width: 100%;margin-top: -' + sz + '%;" src="' + img + '" /><br><p style="font-size: 13px;color: #000;text-align: center;"> ' + text_body + '</p></div>'
+                , success: function (layero) {
+                    var btn = layero.find('.layui-layer-btn');
+
+                }
+            });
+        });
+    });
+
+
+</script>
